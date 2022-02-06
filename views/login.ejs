@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Brilliant Mind</title>
+    <meta name = "viewport" content ="width = device-width, initial-scale = 1">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <div class="login-form">
+        <h1>Login or Register!</h1>
+        <!-- wie macht man von hier aus eine put request?? sodas im body username und password in json format sind -->
+        <form action="/loginFromLogin" method="POST">
+           
+            <input type="text" name="name" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="submit">
+        </form>
+    </div>
+    <form action="/register" method="GET">
+        <button>Register</button>
+    </form>
+</form>
+
+</body>
+</html>

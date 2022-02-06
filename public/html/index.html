@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brilliant Mind</title>
+    <link href="../css/index.css" rel="stylesheet" type="text/css">
+
+    <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"></script>
+
+    <script src="../../backEnd/APIs/openWeatherMapApi.js"></script>
+
+    <meta name = "viewport" content ="width = device-width, initial-scale = 1">
+</head>
+
+<body>
+
+<section id = "info">
+    <div id="weatherData">
+        <img id = "icon">
+        <div id = "description"></div>
+        <div id = "temp"></div>
+    </div>
+    <div id="logoutBtn"><a href="../../homepage.html">Logout</a></div>
+
+</section>
+
+<div id = "top">
+    <img src="../images/title.png" borde="0" class="responsive-image">
+    <div id = "logo-name">BRILLIANT MIND</div>
+    <img src="../images/title.png" borde="0" class="responsive-image">
+
+    <div id = "navigation">
+        <a href = "#about-us">About us</a>
+        <a href = "#tools">Tools</a>
+        <a href = "news.html">News</a>
+        <a href = "#impressum">Impressum</a>
+    </div>
+
+    <div id = "image">
+        <img src="../images/index_title.png" borde="0" class="responsive-image">
+
+    </div>
+</div>
+
+<div id = "main"></div>
+
+<section id = "tools">
+    <h2>TOOLS</h2>
+    <div id = "boxCalendar">
+        <a class="textBox" href="calendar.html">Calendar</a>
+        <img loading="lazy" src="../images/index_Calendar.jpg" id="index_Calendar">
+    </div>
+    <div id = "boxEShop">
+        <a class="textBox" href="eshop.html">Webshop</a>
+        <img loading="lazy" src="../images/index_Webshop.jpg" id="index_Calendar">
+    </div>
+    <div id = "boxChat">
+        <a class="textBox"> Chat</a>
+        <img loading="lazy" src="../images/index_Chat.jpg" id="index_Calendar">
+    </div>
+</section>
+
+<section id = "news">
+    <h2>NEWS</h2>
+    <div id="newsdiv">
+
+        <form class="search" action="">
+            <input class="input" type="text" placeholder="Ich will News bezüglich..." />
+            <input type="submit" value="Suchen"/>
+
+        </form>
+        <div class="container">
+        <ul class="news-list"></ul>
+        </div>
+      <!-- <iframe class="responsive-iframe" src="https://www.orf.at"></iframe> -->
+    </div>
+</section>
+<section id = "about-us">
+    <h2>ABOUT US</h2>
+    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+    </p>
+</section>
+
+<section id = "impressum">
+    <h2>IMPRESSUM</h2>
+    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+    </p>
+</section>
+
+<div id = "footer">
+    Copyright 2021 | Brilliant Mind
+</div>
+<script src="../js/index.js"></script>
+</body>
+
+</html>

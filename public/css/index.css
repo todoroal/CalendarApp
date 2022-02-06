@@ -1,0 +1,284 @@
+body {
+  background-color: #ebefeb;
+}
+
+#top {
+  text-align: center;
+}
+
+#footer {
+  text-align: center;
+  color: dimgray;
+  font-family: Verdana;
+  font-size: 0.7em;
+  padding: 16px;
+}
+
+#logo-name {
+  font-size: 45pt;
+  font-family: "Tw Cen MT";
+  color: dimgray;
+  font-weight: normal;
+  letter-spacing: 0.9em;
+  margin: 8px;
+}
+
+#navigation a {
+  color: dimgrey;
+  font-family: Verdana;
+  font-size: 10pt;
+  text-transform: uppercase;
+  padding: 100px;
+}
+
+#navigation a:hover {
+  color: #86998c;
+  font-weight: bold;
+}
+
+h1 {
+  color: dimgrey;
+  text-align: center;
+  font-family: "Tw Cen MT";
+  letter-spacing: 0.8em;
+  font-size: 3em;
+  margin-top: 3em;
+  border-bottom-width: 3px;
+  border-bottom-color: dimgray;
+  border-bottom-style: solid;
+}
+
+h2 {
+  color: dimgray;
+  text-align: center;
+  font-family: "Tw Cen MT";
+  letter-spacing: 0.4em;
+  font-size: 2em;
+}
+
+#displayUsername {
+  font: bold;
+  max-width: 100%;
+  text-align: center;
+}
+
+
+
+h3 {
+  color: dimgray;
+  text-align: center;
+  font-family: "Tw Cen MT";
+  letter-spacing: 0.4em;
+  font-size: 0.2em;
+  margin-top: 10em;
+}
+
+p {
+  color: dimgray;
+  text-align: left;
+  font-family: Verdana;
+  font-size: 1em;
+}
+
+#image img {
+  width: 99.5%;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.center {
+  margin-top: 100px;
+}
+
+#about-us {
+  background-color: white;
+  max-width: 800px;
+  margin: auto;
+  font-size: 10px;
+}
+
+#tools {
+  max-width: 100%;
+  margin: auto;
+}
+
+#boxCalendar,
+#boxEShop,
+#boxNews {
+  display: inline-block;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+  background-color: white;
+  box-sizing: border-box;
+  font-family: "Tw Cen MT";
+  font-size: 12pt;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 12px;
+  color: white;
+  border: none;
+}
+
+.textBox {
+  position: relative;
+  text-decoration: none;
+  color: dimgray;
+  bottom: 10px;
+}
+#impressum {
+  max-width: 800px;
+  margin: auto;
+  font-size: 10px;
+}
+#newsdiv {
+  text-align: center;
+  margin-top: 35px;
+  margin-bottom: 40px;
+}
+
+#info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#info #weatherData {
+  display: flex;
+  flex-direction: row;
+}
+
+
+#logoutBtn{
+  color: dimgrey;
+  font-family: Verdana;
+  font-size: 10pt;
+  text-transform: uppercase;
+  padding-right: 50px;
+}
+
+#displayUsername{
+  color: black; 
+  font-family: Verdana;
+  font-size: 15pt;
+  text-transform: uppercase;
+  font: bold;
+  
+}
+
+#logoutBtn:hover {
+  color: #86998c;
+  font-weight: bold;
+}
+
+#description,
+#temp {
+  display: flex;
+  font-family: "Tw Cen MT";
+  font-size: 12pt;
+  margin-right: 7px;
+  padding-top: 10px;
+}
+#welcome {
+  font-size: 2vw;
+  text-align: center;
+  max-width: 100%;
+  }
+.responsive-image {
+  height: auto;
+  width: 100%;
+  display: block;
+}
+@media only screen and (max-width:  768px) {
+  #h1 {
+    font-size: 45pt;
+    font-family: "Tw Cen MT";
+    color: dimgray;
+    font-weight: normal;
+    letter-spacing: 0.9em;
+    margin: 8px;
+  }
+  
+  nav ul li {
+    display: inline;
+  }
+  h2 {
+    color: dimgray;
+    text-align: center;
+    font-family: "Tw Cen MT";
+    letter-spacing: 0.4em;
+    font-size: 2em;
+  }
+  main {
+    right: 0;
+    margin-top: 150px;
+    margin-left: 0;
+  max-width: 100%;}
+  aside {
+    top: 140px;
+  }
+ #usernamelogin{
+  font-size:1vw;
+ }
+ #passwordlogin{
+   font-size: 1vw;
+ }
+ #settingsBtn{
+   font-size: 1vw;
+ }
+ #LogoutForm {
+   font-size: 1vw;
+ }
+ #image img {
+  max-width: 100%;
+ }
+ #boxCalendar,
+#boxEShop,
+#boxNews {
+  display: inline-block;
+  max-width: 100%;
+  padding-top: 20px;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+  background-color: white;
+  box-sizing: border-box;
+  font-family: "Tw Cen MT";
+  font-size: 12pt;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 4px;
+  color: white;
+  border: none;
+}
+.responsive {
+  width: 100%;
+  height: auto;
+}
+
+  #tools {
+    max-width: 100%;
+    margin: auto;
+  }
+h3{
+  max-width: 100%;
+}
+
+#displayUsername {
+  font: bold;
+  max-width: 100%;
+  height: auto;
+  font-size: 1vw;
+  text-align: center;
+  color: black;
+}
+#welcome {
+font-size: 2vw;
+text-align: center;
+max-width: 100%;
+height: auto;
+width: auto;
+}
+}
+

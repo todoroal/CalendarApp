@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brilliant Mind</title>
+    <link rel="stylesheet" href="css/settings.css">
+
+    
+    
+</head>
+<body>
+    <img height="150" width="170" loading="lazy" src="../images/index_Chat.jpg" height="150" width="170"/>
+    <h1>SETTINGS</h1>
+    <h2>Change Password</h1>
+    <form id="changePasswordForm">
+        <input type="text" id="email" placeholder="Email" required>
+        <input type="password" id="password"placeholder="Password" required>
+        <input type="password" id="newPassword"placeholder="new Password" required>
+        <input type="submit" id="submitBtn1">
+    </form>
+    <h2>Change Username</h1>
+    <form id="changeUsernameForm">
+        <input type="text" id="emailF2" placeholder="Email" required>
+        <input type="password" id="passwordF2" placeholder="Password" required>
+        <input type="text" id="newUsernameF2" placeholder="new Username" required>
+        <input type="submit" id="submitBtn2">
+    </form>
+    <h2>Delete User</h1>
+    <form id="deleteUsernameForm">
+        <input type="text" id="emailF3" placeholder="Email" required>
+        <input type="password" id="passwordF3" placeholder="Password" required>
+        <input type="submit">
+    </form>
+    <form action="/index" method="GET">
+        <input type="submit" value="Go To Homepage">
+    </form>
+
+    
+    <script>
+        function ChangePasswordFormSubmit(event) {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const newPassword = document.getElementById('newPassword').value;
+
+            const data = {email, password, newPassword};
+            //console.log(JSON.stringify(data));
+            const options = {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }
+            fetch('/changePassword', options)
+            
+            //event.preventDefault();
+        }
+        const form = document.getElementById('changePasswordForm');
+        form.addEventListener('submit', ChangePasswordFormSubmit);
+        
+        //___________________________________
+
+        function ChangeUsernameFormSubmit(event) {
+            const email = document.getElementById('emailF2').value;
+            const password = document.getElementById('passwordF2').value;
+            const newUsername = document.getElementById('newUsernameF2').value;
+
+            const data = {email, password, newUsername};
+            const options = {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }
+            fetch('/changeUsername', options)
+            event.preventDefault();
+
+        }
+        const form2 = document.getElementById('changeUsernameForm');
+        form2.addEventListener('submit', ChangeUsernameFormSubmit);
+
+        //___________________________________
+
+
+        function DeleteUser(event) {
+            const email = document.getElementById('emailF3').value;
+            const password = document.getElementById('passwordF3').value;
+            
+            const data = {email, password};
+            const options = {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }
+            fetch('/deleteUser', options)
+            event.preventDefault();
+        }
+        const form3 = document.getElementById('deleteUsernameForm');
+        form3.addEventListener('submit', DeleteUser);
+
+    </script>
+
+</body>
+</html>

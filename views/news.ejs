@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/news.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+    
+</head>
+<body>
+    <h2>NEWS</h2>
+    <div id="newsdiv">
+        <form class="search" action="">
+            <input class="input" type="text" placeholder="Ich will News bezüglich..." /> </br>
+            <input type="submit" value="Suchen"/>
+    
+        </form>
+        
+    </div>
+    <div id="myList">
+    </div>
+
+
+<script>        
+const searchFrom= document.querySelector('.search');
+const input = document.querySelector('.input');
+
+function retrieve(e){
+    if (input.value==''){
+        alert('Bitte zuerst einen Suchbegriff eingeben')
+        return
+    }
+    e.preventDefault()
+
+    let topic = input.value;
+
+    let url= 'https://newsapi.org/v2/everything??country=at&q='+topic+'&apikey=538d94982e5444b78cfe15198c4786b2'
+
+    console.log(topic)
+
+    fetch(url).then((res)=>{
+        console.log(res)
+        return res.json()
+    }).then((res)=>{
+        console.log(res);
+        let div = document.getElementById('myList');
+
+        res.articles.forEach((article) => {
+            let title = document.createElement('p');
+            title.innerText = article.title;
+            title.className = 'title';
+            
+            div.appendChild(title);
+
+            let descr = document.createElement('p');
+            descr.innerText = article.description;
+            descr.className = 'descr';
+            div.appendChild(descr);
+
+            let img = document.createElement('img');
+            img.src = article.urlToImage;
+            img.className = 'img';
+            div.appendChild(img);
+            
+            let link = document.createElement('a');
+            link.innerText = 'link';
+            link.href=article.url;
+            link.className = 'link';
+            div.appendChild(link);
+
+        })
+    }).catch((error)=>{
+        console.log(error)
+    });
+}
+searchFrom.addEventListener('submit', retrieve)
+
+    </script>
+
+</body>
+</html>
+
+

@@ -1,0 +1,56 @@
+h2 {  
+    
+    left: 40%;
+
+}
+body{
+    margin: 0;
+padding: 0;
+box-sizing: border-box;
+list-style: none;
+
+}
+
+.search{
+    top: 10%;
+    left: 40%;
+}
+.container{
+    top: 40%;
+
+}
+h2{
+    text-align: center;
+}
+#newsdiv{
+    text-align: center;
+}
+
+.title{
+    font-family: "Tw Cen MT";   
+    background-color: aqua; 
+}
+@media only screen and (max-width:  768px) {
+ #newsdiv{
+     text-align: center;
+ }
+.img {
+text-align: center ;
+max-width: 100%;
+height: auto;
+}
+.title {
+    text-align: center ;
+    color: red;
+}
+.descr{
+    font-size: 5vw;
+}
+.title{
+    font-size: 5vw;
+}
+.link {
+    font: bold;
+    font-size: 3 vw;
+}
+}
