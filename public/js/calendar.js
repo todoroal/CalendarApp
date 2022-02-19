@@ -1,146 +1,292 @@
-let nav = 0;
-let clicked = null;
-let events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')) : [];
+import { dateString, getDayIndex, addDays } from "./helper.js";
+import { Event, MODE } from "./event.js";
 
-const calendar = document.getElementById('calendar');
-const newEventModal = document.getElementById('newEventModal');
-const deleteEventModal = document.getElementById('deleteEventModal');
-const backDrop = document.getElementById('modalBackDrop');
-const eventTitleInput = document.getElementById('eventTitleInput');
-const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
-function saveE() {
-    let xhr = window.Xml
-}
-
-function openModal(date) {
-    clicked = date;
-
-    const eventForDay = events.find(e => e.date === clicked);
-
-    if (eventForDay) {
-        document.getElementById('eventText').innerText = eventForDay.title;
-        deleteEventModal.style.display = 'block';
-    } else {
-        newEventModal.style.display = 'block';
+export class Calendar {
+    constructor() {
+        this.mode = MODE.VIEW;
+        this.events = {};
+        this.weekOffset = 0;
+        this.readyToTrash = false;
+        this.slotHeight = 30;
+        this.weekStart = null;
+        this.weekEnd = null;
+        this.eventsLoaded = false;
     }
 
-    backDrop.style.display = 'block';
-}
+    // Setup für den Aufruf --> main.js
 
-
-function load() {
-    const dt = new Date();
-
-    if (nav !== 0) {
-        dt.setMonth(new Date().getMonth() + nav);
+    setup() {
+        this.setupTimes();
+        this.setupDays();
+        this.calculateCurrentWeek();
+        this.showWeek();
+        this.loadEvents();
+        this.setupControls();
     }
 
-    const day = dt.getDate();
-    const month = dt.getMonth();
-    const year = dt.getFullYear();
+    // Funktionen für die Buttons --> ChangeWeek, Trash, ...
 
-    const firstDayOfMonth = new Date(year, month, 1);
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    setupControls() {
+        $("#nextWeekBtn").click(() => this.changeWeek(1));
+        $("#prevWeekBtn").click(() => this.changeWeek(-1));
+        $("#addButton").click(() => this.addNewEvent());
+        $("#trashButton").click(() => this.trash());
+        $("#cancelButton").click(() => this.closeModal());
+        $(".color").click(this.changeColor);
+    }
 
-    const dateString = firstDayOfMonth.toLocaleDateString('en-us', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'numeric',
-        day: 'numeric',
-    });
-    const paddingDays = weekdays.indexOf(dateString.split(', ')[0]);
+    // Ausgabe Zeiten
 
-    document.getElementById('monthDisplay').innerText =
-        `${dt.toLocaleDateString('en-us', { month: 'long' })} ${year}`;
-
-    calendar.innerHTML = '';
-
-    for(let i = 1; i <= paddingDays + daysInMonth; i++) {
-        const daySquare = document.createElement('div');
-        daySquare.classList.add('day');
-
-        const dayString = `${month + 1}/${i - paddingDays}/${year}`;
-
-        if (i > paddingDays) {
-            daySquare.innerText = i - paddingDays;
-            const eventForDay = events.find(e => e.date === dayString);
-
-            if (i - paddingDays === day && nav === 0) {
-                daySquare.id = 'currentDay';
-            }
-
-            if (eventForDay) {
-                const eventDiv = document.createElement('div');
-                eventDiv.classList.add('event');
-                eventDiv.innerText = eventForDay.title;
-                daySquare.appendChild(eventDiv);
-            }
-
-            daySquare.addEventListener('click', () => openModal(dayString));
-        } else {
-            daySquare.classList.add('padding');
+    setupTimes() {
+        const header = $("<div></div>").addClass("columnHeader");
+        const slots = $("<div></div>").addClass("slots");
+        for (let hour = 0; hour < 24; hour++) {
+            $("<div></div>")
+                .attr("data-hour", hour)
+                .addClass("time")
+                .text(`${hour}:00 - ${hour + 1}:00`)
+                .appendTo(slots);
         }
-
-        calendar.appendChild(daySquare);
+        $(".dayTime").append(header).append(slots);
     }
-}
 
+    // Ausgabe Tage
 
-function closeModal() {
-    eventTitleInput.classList.remove('error');
-    newEventModal.style.display = 'none';
-    deleteEventModal.style.display = 'none';
-    backDrop.style.display = 'none';
-    eventTitleInput.value = '';
-    clicked = null;
-    load();
-}
-
-
-function saveEvent() {
-    if (eventTitleInput.value) {
-        eventTitleInput.classList.remove('error');
-
-        events.push({
-            date: clicked,
-            title: eventTitleInput.value,
+    setupDays() {
+        const cal = this;
+        $(".day").each(function () {
+            const dayIndex = parseInt($(this).attr("data-dayIndex"));
+            const name = $(this).attr("data-name");
+            const header = $("<div></div>").addClass("columnHeader").text(name);
+            const slots = $("<div></div>").addClass("slots");
+            $("<div></div>").addClass("dayDisplay").appendTo(header);
+            for (let hour = 0; hour < 24; hour++) {
+                $("<div></div>")
+                    .attr("data-hour", hour)
+                    .appendTo(slots)
+                    .addClass("slot")
+                    .click(() => cal.clickSlot(hour, dayIndex))
+                    .hover(
+                        () => cal.hoverOver(hour),
+                        () => cal.hoverOut()
+                    );
+            }
+            $(this).append(header).append(slots);
         });
+    }
 
-        localStorage.setItem('events', JSON.stringify(events));
-        closeModal();
-    } else {
-        eventTitleInput.classList.add('error');
+    // Berechnung der Woche der Woche mit Hilfe der Datei helper.js
+
+    calculateCurrentWeek() {
+        const now = new Date();
+        this.weekStart = addDays(now, -getDayIndex(now));
+        this.weekEnd = addDays(this.weekStart, 6);
+    }
+
+    // Ändern der Woche beim Weiterklicken
+
+    changeWeek(number) {
+        this.weekOffset += number;
+        this.weekStart = addDays(this.weekStart, 7 * number);
+        this.weekEnd = addDays(this.weekEnd, 7 * number);
+        this.showWeek();
+        this.loadEvents();
+    }
+
+    // Anzeige der Woche
+
+    showWeek() {
+        const options = {
+            month: "2-digit",
+            day: "2-digit",
+            year: "numeric",
+        };
+        $("#weekStartDisplay").text(
+            this.weekStart.toLocaleDateString(undefined, options)
+        );
+        $("#weekEndDisplay").text(this.weekEnd.toLocaleDateString(undefined, options));
+
+        for (let dayIndex = 0; dayIndex < 7; dayIndex++) {
+            const date = addDays(this.weekStart, dayIndex);
+            const display = date.toLocaleDateString(undefined, {
+                month: "2-digit",
+                day: "2-digit",
+            });
+            $(`.day[data-dayIndex=${dayIndex}] .dayDisplay`).text(display);
+        }
+        if (this.weekOffset == 0) {
+            this.showCurrentDay();
+        } else {
+            this.hideCurrentDay();
+        }
+    }
+
+    showCurrentDay() {
+        const now = new Date();
+        const dayIndex = getDayIndex(now);
+        $(`.day[data-dayIndex=${dayIndex}]`).addClass("currentDay");
+    }
+
+    hideCurrentDay() {
+        $(".day").removeClass("currentDay");
+    }
+
+    hoverOver(hour) {
+        $(`.time[data-hour=${hour}]`).addClass("currentTime");
+    }
+
+    hoverOut() {
+        $(".time").removeClass("currentTime");
+    }
+
+    // Auswahl der Slots
+    // Öffnung des Modals
+
+    clickSlot(hour, dayIndex) {
+        if (this.mode != MODE.VIEW) return;
+        this.mode = MODE.CREATE;
+        const start = hour.toString().padStart(2, "0") + ":00";
+        const end =
+            hour < 23
+                ? (hour + 1).toString().padStart(2, "0") + ":00"
+                : hour.toString().padStart(2, "0") + ":59";
+
+        const date = dateString(addDays(this.weekStart, dayIndex));
+        const event = new Event({
+            start,
+            end,
+            date,
+            title: "",
+            description: "",
+            color: "red",
+        });
+        this.openModal(event);
+    }
+
+    changeColor() {
+        $(".color").removeClass("active");
+        $(this).addClass("active");
+    }
+
+    // Öffnet Modal wenn auf Slot geklickt wird --> Click Slot
+
+    openModal(event) {
+        $("#modalTitle").text(
+            this.mode == MODE.UPDATE ? "Update your event" : "Create a new event"
+        );
+        $("#eventTitle").val(event.title);
+        $("#eventDate").val(event.date);
+        $("#eventStart").val(event.start);
+        $("#eventEnd").val(event.end);
+        $("#eventDescription").val(event.description);
+        $(".color").removeClass("active");
+        $(`.color[data-color=${event.color}]`).addClass("active");
+        if (this.mode == MODE.UPDATE) {
+            $("#submitButton").val("Update");
+            $("#deleteButton")
+                .show()
+                .off("click")
+                .click(() => event.deleteIn(this));
+            $("#copyButton")
+                .show()
+                .off("click")
+                .click(() => event.copyIn(this));
+        } else if (this.mode == MODE.CREATE) {
+            $("#submitButton").val("Create");
+            $("#deleteButton, #copyButton").hide();
+        }
+        $("#eventModal").fadeIn(200);
+        $("#eventTitle").focus();
+        $("#calendar").addClass("opaque");
+        $("#eventModal")
+            .off("submit")
+            .submit((e) => {
+                e.preventDefault();
+                this.submitModal(event);
+            });
+    }
+
+    submitModal(event) {
+        if (event.isValidIn(this)) {
+            event.updateIn(this);
+            this.closeModal();
+        }
+    }
+
+    closeModal() {
+        $("#eventModal").fadeOut(200);
+        $("#errors").text("");
+        $("#calendar").removeClass("opaque");
+        this.mode = MODE.VIEW;
+    }
+
+    addNewEvent() {
+        if (this.mode != MODE.VIEW) return;
+        this.mode = MODE.CREATE;
+        const event = new Event({
+            start: "12:00",
+            end: "13:00",
+            date: dateString(this.weekStart),
+            title: "",
+            description: "",
+            color: "red",
+        });
+        this.openModal(event);
+    }
+
+    // Speicherung der Events
+
+    saveEvents() {
+        localStorage.setItem("events", JSON.stringify(this.events));
+    }
+
+    // Ausgabe der Events
+
+    loadEvents() {
+        $(".event").remove();
+        if (!this.eventsLoaded) {
+            this.events = JSON.parse(localStorage.getItem("events"));
+            if (this.events) {
+                for (const date of Object.keys(this.events)) {
+                    for (const id of Object.keys(this.events[date])) {
+                        const event = new Event(this.events[date][id]);
+                        this.events[date][id] = event;
+                    }
+                }
+            }
+            this.eventsLoaded = true;
+        }
+        if (this.events) {
+            for (let dayIndex = 0; dayIndex < 7; dayIndex++) {
+                const date = dateString(addDays(this.weekStart, dayIndex));
+                if (this.events[date]) {
+                    for (const event of Object.values(this.events[date])) {
+                        event.showIn(this);
+                    }
+                }
+            }
+        } else {
+            this.events = {};
+        }
+    }
+
+    trash() {
+        if (this.mode != MODE.VIEW) return;
+        if (this.readyToTrash) {
+            this.readyToTrash = false;
+            this.events = {};
+            this.saveEvents();
+            $(".event").remove();
+        } else {
+            this.readyToTrash = true;
+            window.alert(
+                "This will delete all the events in your calendar. " +
+                    "This cannot be undone. If you are sure, click " +
+                    "the trash can again in the next minute."
+            );
+            setTimeout(() => {
+                this.readyToTrash = false;
+            }, 60 * 1000);
+        }
     }
 }
-
-
-function deleteEvent() {
-    events = events.filter(e => e.date !== clicked);
-    localStorage.setItem('events', JSON.stringify(events));
-    closeModal();
-}
-
-
-function initButtons() {
-    document.getElementById('nextButton').addEventListener('click', () => {
-        nav++;
-        load();
-    });
-
-    document.getElementById('backButton').addEventListener('click', () => {
-        nav--;
-        load();
-    });
-
-    document.getElementById('saveButton').addEventListener('click', saveEvent);
-    document.getElementById('cancelButton').addEventListener('click', closeModal);
-    document.getElementById('deleteButton').addEventListener('click', deleteEvent);
-    document.getElementById('closeButton').addEventListener('click', closeModal);
-}
-
-initButtons();
-load();
-
-
-
