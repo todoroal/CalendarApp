@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brilliant Mind</title>
+    <title>CalendarApp</title>
     <link rel="stylesheet" href="css/index.css">
     <script
         src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -38,11 +38,18 @@
         <div id = "temp"></div>
     </div>
 
+    <div>
+        <p>Logged in as:</p>
+        <p id="displayUsername"></p>
+    </div>
+
     <form id="loginForm">    
-       <p id="displayUsername"></p>
         <input style="font-size:1vw"  type="text" id="usernameLogin" placeholder="Username" required>
         <input style="font-size:1vw" type="password" id="passwordLogin" placeholder="Password" required>
         <input style="font-size:1vw"  type="submit">
+    </form>
+    <form action="/register" method="GET">
+        <button>Register</button>
     </form>
 
     <form action="/settings" method="GET">
@@ -51,14 +58,13 @@
     <form id="logoutForm">
         <input style="font-size:1vw" type="submit" value="Logout">
     </form>
-
 </section>
 
 <div id = "top">
     <h1>
-    <img src="images/title.png" style="max-width:100%;height:auto;"/>
-    <div style="font-size:5vw" id = "logo-name">BRILLIANT MIND</div>
-    <img src="images/title.png" style="max-width:100%;height:auto;"/>
+    <img src="images/title.png" style="max-width:100%;height:50px;"/>
+    <div style="font-size:5vw" id = "logo-name">CalendarApp</div>
+    <img src="images/title.png" style="max-width:100%;height:50px;"/>
 </h1>
     <div id = "navigation">
         <a  style="max-width:100%;height:auto;" href = "#about-us">About us</a>
@@ -73,24 +79,23 @@
 </div>
 
 <div id = "main">
-    <h2>
-<section style="font-size:3vw" id = "tools">
-    
-    TOOLS
-   
-    <div id = "boxCalendar">
-        <a style="font-size:3vw" class="textBox" href="calendar">Calendar</a>
-        <img loading="lazy" class=responsive src="images/index_Calendar.jpg" style="max-width:10%;height:auto;" id="index_Calendar1">
-    </div>
-    <div id = "boxEShop">
-        <a class="textBox" style="font-size:3vw" href="eshop">Webshop</a>
-        <img  loading="lazy" class=responsive src="images/index_Webshop.jpg" style="max-width:10%;height:auto;" id="index_Calendar2">
-    </div>
-    <div id = "boxNews">
-        <a class="textBox" style="font-size:3vw" href="news"> News</a>
-        <img  loading="lazy"  class=responsive src="images/news (2).jpg" style="max-width:10%;height:auto;" id="index_Calendar3">
-    </div></h2>
-</section>
+<h2>
+    <section style="font-size:3vw" id = "tools">
+        TOOLS
+        <div id = "boxCalendar">
+            <a style="font-size:3vw" class="textBox" href="calendar">Calendar</a>
+            <img loading="lazy" class=responsive src="images/index_Calendar.jpg" style="max-width:10%;height:auto;" id="index_Calendar1">
+        </div>
+        <div id = "Pomodoro-Timer">
+            <a class="textBox" style="font-size:3vw" href="pomodoro">Pomodoro-Timer</a>
+            <img  loading="lazy" class=responsive src="images/index_Webshop.jpg" style="max-width:10%;height:auto;" id="index_Calendar2">
+        </div>
+        <div id = "boxNews">
+            <a class="textBox" style="font-size:3vw" href="news"> News</a>
+            <img  loading="lazy"  class=responsive src="images/news (2).jpg" style="max-width:10%;height:auto;" id="index_Calendar3">
+        </div>
+    </section>
+</h2>
 
 </div>
 <section id = "about-us">
@@ -139,16 +144,19 @@
         }
         const form = document.getElementById('loginForm');
         form.addEventListener('submit', Login);
-
+</script>
+<script>
 
         function Lougout(event){
             const options = {
                 method: 'DELETE',
             }
             fetch('/logout', options)
-            .then(document.getElementById('displayUsername').innerHTML = 'You have to log in!');
+            .then(document.getElementById('displayUsername').innerHTML = 'You are logged out!')
             event.preventDefault();
-            
+
+            //document.location.reload(true);
+
             /*
             .then(response => {
                 return response.text();

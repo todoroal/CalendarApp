@@ -57,22 +57,6 @@ router.post('/login', async (req, res) =>  {
     }
 });
 
-router.post('/loginFromLogin', async (req, res) =>  {
-    const { name, password } = req.body;
-    const hashedPassword = getHashedPassword(password);
-
-    const user = await Users.findOne({
-        name: name, password: hashedPassword
-    }).exec();
-
-    if (user){
-        req.session.isAuth = true; //Cookier wird client bereitgestellt
-        req.session.name = name;//??
-        res.redirect('index');
-    } else {
-        res.render('register');
-    }
-});
 
 // logout
 router.delete('/logout', async (req, res) =>  {
