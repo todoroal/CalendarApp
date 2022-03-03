@@ -1,9 +1,9 @@
-/* general stuff */
+/* general */
 
 :root {
-    --grid-color: #cecece;
+    --grid-color: #dbe6f5;
     --time-color: #777;
-    --slot-hover-color: #eee;
+    --slot-hover-color: #dbe6f5;
     --shadow-color: rgba(0, 0, 0, 0.3);
     --font-color: #222;
     --color-red: rgb(190, 35, 15);
@@ -20,8 +20,9 @@
 }
 
 body {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Tw Cen MT", Tahoma, Geneva, Verdana, sans-serif;
     color: var(--font-color);
+    
 }
 
 input,
@@ -46,6 +47,7 @@ textarea {
 .header h1 {
     color: var(--color-blue);
     font-weight: 400;
+    letter-spacing: 0.8em
 }
 
 .header i {
