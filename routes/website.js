@@ -26,4 +26,7 @@ router.get('/news', isAuth, (req,res) => {
 router.get('/settings', isAuth, (req,res) => {
   res.render('settings');
 });
+router.get('/pomodoro', isAuth, (req,res) => {
+  res.render('pomodoro');
+});
 module.exports = router;

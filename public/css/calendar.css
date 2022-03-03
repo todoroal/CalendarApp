@@ -57,6 +57,7 @@ textarea {
     transition: all 80ms linear;
 }
 
+.fa-home:hover,
 .header i:hover {
     color: var(--font-color);
     border-color: var(--font-color);
@@ -75,7 +76,8 @@ textarea {
     right: 20px;
 }
 
-.generalControls i {
+
+.generalControls i, button{
     line-height: 25px;
     display: inline-block;
     width: 30px;
@@ -89,6 +91,10 @@ textarea {
 }
 
 .generalControls .fa-trash-alt {
+    font-size: 18px;
+}
+
+.generalControls .fa-home {
     font-size: 18px;
 }
 
@@ -260,6 +266,7 @@ textarea {
 #eventControls {
     margin: 25px 0px 10px 0px;
 }
+
 
 .button {
     padding: 10px 20px;

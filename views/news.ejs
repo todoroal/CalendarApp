@@ -6,7 +6,8 @@
     <link rel="stylesheet" href="css/news.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
-    
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/996973c893.js"></script>
 </head>
 <body>
     <h2>NEWS</h2>
@@ -14,9 +15,10 @@
         <form class="search" action="">
             <input class="input" type="text" placeholder="Ich will News bezüglich..." /> </br>
             <input type="submit" value="Suchen"/>
-    
         </form>
-        
+        <form action="/index" method="GET">
+            <button  class="fas fa-home fa-2x"></button>
+        </form>
     </div>
     <div id="myList">
     </div>
@@ -64,9 +66,9 @@ function retrieve(e){
             div.appendChild(img);
             
             let link = document.createElement('a');
-            link.innerText = 'link';
+            link.innerText = '\n';
             link.href=article.url;
-            link.className = 'link';
+            link.className = "fas fa-book fa-2x";
             div.appendChild(link);
 
         })
