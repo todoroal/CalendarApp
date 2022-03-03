@@ -1,5 +1,5 @@
 body {
-    background-color:  #f0f8f2;
+    background-color:  #dbe6f5;
     font-family: Verdana;
   }
   
@@ -38,7 +38,7 @@ body {
     display: block;
     margin: 20px auto;
     text-align: center;
-    border: 2px solid #3a4c3c;
+    border: 2px solid #132038;
     padding: 10px 40px;
     cursor: pointer;
     
@@ -52,7 +52,7 @@ body {
     font-family: "Tw Cen MT";
     font-size: 1em;
     letter-spacing: 7px;
-    color: white;
+    color: dimgray;
   }
   
  
