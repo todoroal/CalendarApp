@@ -1,5 +1,6 @@
 import { dateString, getDayIndex, addDays } from "./helper.js";
 import { Event, MODE } from "./event.js";
+const currentUser = localStorage["currentUser"];
 
 export class Calendar {
     constructor() {
@@ -235,9 +236,8 @@ export class Calendar {
     }
 
     // Speicherung der Events
-
     saveEvents() {
-        localStorage.setItem("events", JSON.stringify(this.events));
+        localStorage.setItem(currentUser+"events", JSON.stringify(this.events));
     }
 
     // Ausgabe der Events
@@ -245,7 +245,7 @@ export class Calendar {
     loadEvents() {
         $(".event").remove();
         if (!this.eventsLoaded) {
-            this.events = JSON.parse(localStorage.getItem("events"));
+            this.events = JSON.parse(localStorage.getItem(currentUser+"events"));
             if (this.events) {
                 for (const date of Object.keys(this.events)) {
                     for (const id of Object.keys(this.events[date])) {

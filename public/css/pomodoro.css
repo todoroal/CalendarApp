@@ -36,7 +36,7 @@ body {
 .fa-play,
 .fa-pause,
 .fa-redo-alt {
-	color: #141e66;
+	color: #e3f6f5;
 	border: 2px solid transparent;
 	padding: 1rem;
 	border-radius: 2rem;
@@ -46,8 +46,8 @@ body {
 .fa-play:hover,
 .fa-pause:hover,
 .fa-redo-alt:hover {
-	color: #141e66;
-	border: 2px solid #141e66;
+	color: #bae8e8;
+	border: 2px solid #bae8e8;
 	transition: 0.3s ease;
 }
 
