@@ -1,96 +1,93 @@
-body{
-    margin: 10px;
-    padding: 0;
-    box-sizing: border-box;
-    list-style: none;
-    align-items: center;
-    
+body {
+	margin: 10px;
+	padding: 0;
+	box-sizing: border-box;
+	list-style: none;
+	align-items: center;
 }
 
-
-#newsdiv .fa-home{
-    font-size: 16px;
-
+#newsdiv .fa-home {
+	font-size: 16px;
 }
 
 .fa-home {
-  color: #000000;
-  border: 2px solid #000000;
-  width: 40px;
-  height: 40px;
-  display: inline-block;
-  border-radius: 50%;
+	color: #000000;
+	border: 2px solid #000000;
+	width: 40px;
+	height: 40px;
+	display: inline-block;
+	border-radius: 50%;
 }
 
 .fa-home:hover {
-  color: #262fac;
-  border: 2px solid #262fac;
-  transition: 0.3s ease;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+	color: #262fac;
+	border: 2px solid #262fac;
+	transition: 0.3s ease;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
 }
 
-.search{
-    top: 10%;
-    left: 40%;
+.search {
+	top: 10%;
+	left: 40%;
 }
 
-.container{
-    top: 40%;
+.container {
+	top: 40%;
 }
 
-h2{
-    text-align: center;
-    font-size: 50px;
+h2 {
+	text-align: center;
+	font-size: 50px;
 }
 
-#newsdiv{
-    text-align: center;
+#newsdiv {
+	text-align: center;
 }
 
-#newsdiv *{
-    margin-top: 10px;
+#newsdiv * {
+	margin-top: 10px;
 }
 
 img {
-    text-align: center;
-    max-width: 50%;
-    height: auto;
+	text-align: center;
+	max-width: 50%;
+	height: auto;
 }
 
-.fa-book{
-    display: block;
+.fa-book {
+	display: block;
 }
 
-.title{
-    font-family: "Arial Black";
-    padding-top: 30px;
-    font-size: 30px;
+.title {
+	font-family: "Arial Black";
+	padding-top: 30px;
+	font-size: 30px;
 }
 
-@media only screen and (max-width:  768px) {
-    #newsdiv{
-        text-align: center;
-    }
+@media only screen and (max-width: 768px) {
+	#newsdiv {
+		text-align: center;
+	}
 
-    .img {
-    text-align: center;
-    max-width: 40%;
-    height: auto;
-    }
-    .title {
-        text-align: center ;
-        color: red;
-    }
-    .descr{
-        font-size: 5vw;
-    }
-    .title{
-        font-size: 5vw;
-    }
-    .link {
-        font: bold;
-        font-size: 3 vw;
-    }
+	.img {
+		text-align: center;
+		max-width: 40%;
+		height: auto;
+	}
+	.title {
+		text-align: center;
+		color: red;
+	}
+	.descr {
+		font-size: 5vw;
+	}
+	.title {
+		font-size: 5vw;
+	}
+	.link {
+		font: bold;
+		font-size: 3 vw;
+	}
 }

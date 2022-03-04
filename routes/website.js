@@ -29,4 +29,7 @@ router.get('/settings', isAuth, (req,res) => {
 router.get('/pomodoro', isAuth, (req,res) => {
   res.render('pomodoro');
 });
+router.get('/notes', isAuth, (req,res) => {
+  res.render('notes');
+});
 module.exports = router;
